@@ -98,7 +98,11 @@ const buy = (productId) => {
 };
 
 // Exercise 2
-function cleanCart() {}
+const cleanCart = () => {
+  cart.length = 0;
+  console.log("Cart is empty.");
+  console.log(cart);
+};
 
 // Exercise 3
 function calculateTotal() {
