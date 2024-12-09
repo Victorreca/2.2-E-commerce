@@ -94,14 +94,12 @@ const buy = (productId) => {
       }
     }
   }
-  console.log(cart);
 };
 
 // Exercise 2
 const cleanCart = () => {
   cart.length = 0;
   console.log("Cart is empty.");
-  console.log(cart);
 };
 
 // Exercise 3
@@ -117,9 +115,17 @@ const calculateTotal = () => {
 };
 
 // Exercise 4
-function applyPromotionsCart() {
+const applyPromotionsCart = () => {
   // Apply promotions to each item in the array "cart"
-}
+  for (let i = 0; i < cart.length; i++) {
+    const product = cart[i];
+    if (product.offer && product.quantity >= product.offer.number) {
+      const promotionPrice = 1 - product.offer.percent / 100;
+      product.subtotalWithDiscount =
+        product.price * product.quantity * promotionPrice;
+    }
+  }
+};
 
 // Exercise 5
 function printCart() {
