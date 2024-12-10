@@ -128,9 +128,34 @@ const applyPromotionsCart = () => {
 };
 
 // Exercise 5
-function printCart() {
+const printCart = () => {
   // Fill the shopping cart modal manipulating the shopping cart dom
-}
+  const tbodyCartList = document.getElementById("cart_list");
+
+  tbodyCartList.innerHTML = "";
+
+  for (let i = 0; i < cart.length; i++) {
+    const product = cart[i];
+    const trProductCart = document.createElement("tr");
+    const thProductCart = document.createElement("th");
+    thProductCart.scope = "row";
+    const titleProductCart = product.name;
+    const firstCapitalLetter = titleProductCart.charAt(0).toUpperCase();
+    const titleProductWithCapitalLetter =
+      firstCapitalLetter + titleProductCart.slice(1).toLowerCase();
+
+    thProductCart.textContent = titleProductWithCapitalLetter;
+
+    trProductCart.appendChild(thProductCart);
+    tbodyCartList.appendChild(trProductCart);
+  }
+};
+//<tr>
+//  <th scope="row">Cooking oil</th>
+//  <td>$10.5</td>
+//  <td>2</td>
+//  <td>$21</td>
+//</tr>;
 
 // ** Nivell II **
 
