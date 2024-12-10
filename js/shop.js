@@ -1,5 +1,5 @@
 // If you have time, you can move this variable "products" to a json or js file and load the data in this js. It will look more professional
-var products = [
+const products = [
   {
     id: 1,
     name: "cooking oil",
@@ -151,8 +151,11 @@ const printCart = () => {
       firstCapitalLetter + titleProductCart.slice(1).toLowerCase();
 
     thTable.textContent = titleProductWithCapitalLetter;
-    tdFirstTable.textContent = priceProductCart;
+    tdFirstTable.textContent = priceProductCart.toFixed(2);
     tdSecondTable.textContent = qtyProductCart;
+    tdThirdTable.textContent = product.subtotalWithDiscount
+      ? product.subtotalWithDiscount.toFixed(2)
+      : (product.price * product.quantity).toFixed(2);
 
     trTable.appendChild(thTable);
     trTable.appendChild(tdFirstTable);
@@ -161,18 +164,14 @@ const printCart = () => {
     tbodyTable.appendChild(trTable);
   }
 };
-//<tr>
-//  <th scope="row">Cooking oil</th>
-//  <td>$10.5</td>
-//  <td>2</td>
-//  <td>$21</td>
-//</tr>;
 
 // ** Nivell II **
 
 // Exercise 7
 function removeFromCart(id) {}
 
-function open_modal() {
+const open_modal = () => {
+  applyPromotionsCart();
   printCart();
-}
+  console.log(cart);
+};
