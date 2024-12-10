@@ -1,5 +1,5 @@
 // If you have time, you can move this variable "products" to a json or js file and load the data in this js. It will look more professional
-var products = [
+const products = [
   {
     id: 1,
     name: "cooking oil",
@@ -106,12 +106,17 @@ const cleanCart = () => {
 const calculateTotal = () => {
   total = 0;
   // Calculate total price of the cart using the "cartList" array
-  for (let i = 0; i < cart.length; i++) {
-    if (cart.length > 0) {
-      total += cart[i].price * cart[i].quantity;
+  if (cart.length > 0) {
+    for (let i = 0; i < cart.length; i++) {
+      const totalProductPrice = cart[i].subtotalWithDiscount
+        ? cart[i].subtotalWithDiscount
+        : cart[i].price * cart[i].quantity;
+
+      total += totalProductPrice;
     }
   }
   console.log("Total Price: " + total);
+  return total;
 };
 
 // Exercise 4
@@ -128,15 +133,54 @@ const applyPromotionsCart = () => {
 };
 
 // Exercise 5
-function printCart() {
+const printCart = (totalPrice) => {
   // Fill the shopping cart modal manipulating the shopping cart dom
-}
+  const tbodyTable = document.getElementById("cart_list");
+
+  const totalPriceTable = document.getElementById("total_price");
+
+  tbodyTable.innerHTML = "";
+
+  for (let i = 0; i < cart.length; i++) {
+    const product = cart[i];
+    const trTable = document.createElement("tr");
+    const thTable = document.createElement("th");
+    thTable.scope = "row";
+    const tdFirstTable = document.createElement("td");
+    const tdSecondTable = document.createElement("td");
+    const tdThirdTable = document.createElement("td");
+
+    const titleProductCart = product.name;
+    const priceProductCart = product.price;
+    const qtyProductCart = product.quantity;
+    const firstCapitalLetter = titleProductCart.charAt(0).toUpperCase();
+    const titleProductWithCapitalLetter =
+      firstCapitalLetter + titleProductCart.slice(1).toLowerCase();
+
+    thTable.textContent = titleProductWithCapitalLetter;
+    tdFirstTable.textContent = `$${priceProductCart.toFixed(2)}`;
+    tdSecondTable.textContent = qtyProductCart;
+    tdThirdTable.textContent = product.subtotalWithDiscount
+      ? `$${product.subtotalWithDiscount.toFixed(2)}`
+      : `$${(product.price * product.quantity).toFixed(2)}`;
+
+    trTable.appendChild(thTable);
+    trTable.appendChild(tdFirstTable);
+    trTable.appendChild(tdSecondTable);
+    trTable.appendChild(tdThirdTable);
+    tbodyTable.appendChild(trTable);
+  }
+  totalPriceTable.textContent = totalPrice.toFixed(2);
+};
 
 // ** Nivell II **
 
 // Exercise 7
 function removeFromCart(id) {}
 
-function open_modal() {
-  printCart();
-}
+const open_modal = () => {
+  applyPromotionsCart();
+  const priceTotalProducts = calculateTotal();
+  printCart(priceTotalProducts);
+  console.log(cart);
+};
