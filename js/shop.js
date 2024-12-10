@@ -94,6 +94,13 @@ const buy = (productId) => {
       }
     }
   }
+  let countNumber = 0;
+  const countButtonCart = document.getElementById("count_product");
+  for (let i = 0; i < cart.length; i++) {
+    const product = cart[i];
+    countNumber += product.quantity;
+  }
+  countButtonCart.textContent = countNumber;
 };
 
 // Exercise 2
@@ -106,15 +113,15 @@ const cleanCart = () => {
 const calculateTotal = () => {
   total = 0;
   // Calculate total price of the cart using the "cartList" array
-  if (cart.length > 0) {
-    for (let i = 0; i < cart.length; i++) {
-      const totalProductPrice = cart[i].subtotalWithDiscount
-        ? cart[i].subtotalWithDiscount
-        : cart[i].price * cart[i].quantity;
 
-      total += totalProductPrice;
-    }
+  for (let i = 0; i < cart.length; i++) {
+    const totalProductPrice = cart[i].subtotalWithDiscount
+      ? cart[i].subtotalWithDiscount
+      : cart[i].price * cart[i].quantity;
+
+    total += totalProductPrice;
   }
+
   console.log("Total Price: " + total);
   return total;
 };
