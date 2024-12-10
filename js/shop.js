@@ -130,24 +130,35 @@ const applyPromotionsCart = () => {
 // Exercise 5
 const printCart = () => {
   // Fill the shopping cart modal manipulating the shopping cart dom
-  const tbodyCartList = document.getElementById("cart_list");
+  const tbodyTable = document.getElementById("cart_list");
 
-  tbodyCartList.innerHTML = "";
+  tbodyTable.innerHTML = "";
 
   for (let i = 0; i < cart.length; i++) {
     const product = cart[i];
-    const trProductCart = document.createElement("tr");
-    const thProductCart = document.createElement("th");
-    thProductCart.scope = "row";
+    const trTable = document.createElement("tr");
+    const thTable = document.createElement("th");
+    thTable.scope = "row";
+    const tdFirstTable = document.createElement("td");
+    const tdSecondTable = document.createElement("td");
+    const tdThirdTable = document.createElement("td");
+
     const titleProductCart = product.name;
+    const priceProductCart = product.price;
+    const qtyProductCart = product.quantity;
     const firstCapitalLetter = titleProductCart.charAt(0).toUpperCase();
     const titleProductWithCapitalLetter =
       firstCapitalLetter + titleProductCart.slice(1).toLowerCase();
 
-    thProductCart.textContent = titleProductWithCapitalLetter;
+    thTable.textContent = titleProductWithCapitalLetter;
+    tdFirstTable.textContent = priceProductCart;
+    tdSecondTable.textContent = qtyProductCart;
 
-    trProductCart.appendChild(thProductCart);
-    tbodyCartList.appendChild(trProductCart);
+    trTable.appendChild(thTable);
+    trTable.appendChild(tdFirstTable);
+    trTable.appendChild(tdSecondTable);
+    trTable.appendChild(tdThirdTable);
+    tbodyTable.appendChild(trTable);
   }
 };
 //<tr>
