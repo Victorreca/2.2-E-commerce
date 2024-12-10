@@ -106,12 +106,17 @@ const cleanCart = () => {
 const calculateTotal = () => {
   total = 0;
   // Calculate total price of the cart using the "cartList" array
-  for (let i = 0; i < cart.length; i++) {
-    if (cart.length > 0) {
-      total += cart[i].price * cart[i].quantity;
+  if (cart.length > 0) {
+    for (let i = 0; i < cart.length; i++) {
+      const totalProductPrice = cart[i].subtotalWithDiscount
+        ? cart[i].subtotalWithDiscount
+        : cart[i].price * cart[i].quantity;
+
+      total += totalProductPrice;
     }
   }
   console.log("Total Price: " + total);
+  return total;
 };
 
 // Exercise 4
@@ -128,9 +133,11 @@ const applyPromotionsCart = () => {
 };
 
 // Exercise 5
-const printCart = () => {
+const printCart = (totalPrice) => {
   // Fill the shopping cart modal manipulating the shopping cart dom
   const tbodyTable = document.getElementById("cart_list");
+
+  const totalPriceTable = document.getElementById("total_price");
 
   tbodyTable.innerHTML = "";
 
@@ -151,11 +158,11 @@ const printCart = () => {
       firstCapitalLetter + titleProductCart.slice(1).toLowerCase();
 
     thTable.textContent = titleProductWithCapitalLetter;
-    tdFirstTable.textContent = priceProductCart.toFixed(2);
+    tdFirstTable.textContent = `$${priceProductCart.toFixed(2)}`;
     tdSecondTable.textContent = qtyProductCart;
     tdThirdTable.textContent = product.subtotalWithDiscount
-      ? product.subtotalWithDiscount.toFixed(2)
-      : (product.price * product.quantity).toFixed(2);
+      ? `$${product.subtotalWithDiscount.toFixed(2)}`
+      : `$${(product.price * product.quantity).toFixed(2)}`;
 
     trTable.appendChild(thTable);
     trTable.appendChild(tdFirstTable);
@@ -163,6 +170,7 @@ const printCart = () => {
     trTable.appendChild(tdThirdTable);
     tbodyTable.appendChild(trTable);
   }
+  totalPriceTable.textContent = totalPrice.toFixed(2);
 };
 
 // ** Nivell II **
@@ -172,6 +180,7 @@ function removeFromCart(id) {}
 
 const open_modal = () => {
   applyPromotionsCart();
-  printCart();
+  const priceTotalProducts = calculateTotal();
+  printCart(priceTotalProducts);
   console.log(cart);
 };
