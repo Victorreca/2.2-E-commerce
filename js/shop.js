@@ -94,6 +94,7 @@ const buy = (productId) => {
       }
     }
   }
+
   let countNumber = 0;
   const countButtonCart = document.getElementById("count_product");
   for (let i = 0; i < cart.length; i++) {
