@@ -3,6 +3,7 @@ const validate = (event) => {
   let error = 0;
   const onlyLetters = /^[A-Za-z\s]+$/;
   const onlyNumbers = /^[0-9]{9}$/;
+  const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/;
 
   // Get the input fields
   const fName = document.getElementById("fName");
@@ -72,7 +73,11 @@ const validate = (event) => {
     fLastN.classList.remove("is-invalid");
   }
 
-  if (fPassword.value.trim() === "" || fPassword.value.trim().length < 3) {
+  if (
+    fPassword.value.trim() === "" ||
+    fPassword.value.trim().length < 3 ||
+    !passwordPattern.test(fPassword.value.trim())
+  ) {
     fPassword.classList.add("is-invalid");
     errorPassword.textContent = "Enter a correct password";
     error++;
