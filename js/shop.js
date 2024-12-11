@@ -106,8 +106,14 @@ const buy = (productId) => {
 
 // Exercise 2
 const cleanCart = () => {
+  const countButtonCart = document.getElementById("count_product");
+  const tbodyTable = document.getElementById("cart_list");
+  const totalPriceTable = document.getElementById("total_price");
+
   cart.length = 0;
-  console.log("Cart is empty.");
+  countButtonCart.textContent = 0;
+  tbodyTable.innerHTML = "";
+  totalPriceTable.textContent = "0.00";
 };
 
 // Exercise 3
@@ -184,7 +190,7 @@ const printCart = (totalPrice) => {
 // ** Nivell II **
 
 // Exercise 7
-function removeFromCart(id) {}
+const removeFromCart = (productId) => {};
 
 const open_modal = () => {
   applyPromotionsCart();
