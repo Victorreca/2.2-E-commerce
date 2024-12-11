@@ -4,6 +4,7 @@ const validate = (event) => {
   const onlyLetters = /^[A-Za-z\s]+$/;
   const onlyNumbers = /^[0-9]{9}$/;
   const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/;
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   // Get the input fields
   const fName = document.getElementById("fName");
@@ -42,7 +43,11 @@ const validate = (event) => {
     fName.classList.remove("is-invalid");
   }
 
-  if (fEmail.value.trim() === "" || fEmail.value.trim().length < 3) {
+  if (
+    fEmail.value.trim() === "" ||
+    fEmail.value.trim().length < 3 ||
+    !emailPattern.test(fEmail.value.trim())
+  ) {
     fEmail.classList.add("is-invalid");
     errorEmail.textContent =
       "This field is required and must contain an '@' and have, at least, 3 characters";
