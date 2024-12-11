@@ -2,6 +2,7 @@
 const validate = (event) => {
   let error = 0;
   const onlyLetters = /^[A-Za-z\s]+$/;
+  const onlyNumbers = /^[0-9]{9}$/;
 
   // Get the input fields
   const fName = document.getElementById("fName");
@@ -79,7 +80,11 @@ const validate = (event) => {
     fPassword.classList.remove("is-invalid");
   }
 
-  if (fPhone.value.trim() === "" || fPhone.value.trim().length < 3) {
+  if (
+    fPhone.value.trim() === "" ||
+    fPhone.value.trim().length < 3 ||
+    !onlyNumbers.test(fPhone.value.trim())
+  ) {
     fPhone.classList.add("is-invalid");
     errorPhone.textContent =
       "Invalid phone number!! Must be 9 digits with no letters";
