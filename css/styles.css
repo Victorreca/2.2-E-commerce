@@ -11676,3 +11676,13 @@ h5 {
   font-weight: 700;
   font-style: normal;
 }
+.card-products .card {
+  background-color: #bfc6ce;
+  transition: all 0.3s ease-in-out;
+}
+@media (min-width: 576px) {
+  .card-products .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0.5rem 1rem rgb(107 105 105 / 80%) !important;
+  }
+}
