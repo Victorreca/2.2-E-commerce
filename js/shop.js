@@ -84,13 +84,9 @@ const buy = (productId) => {
 
       if (productInCart) {
         productInCart.quantity += 1;
-        console.log(
-          `${productInCart.name} quantity increased to ${productInCart.quantity}.`
-        );
       } else {
         const newProductToAdd = { ...products[i], quantity: 1 };
         cart.push(newProductToAdd);
-        console.log(`${newProductToAdd.name} added to cart.`);
       }
     }
   }
@@ -106,8 +102,14 @@ const buy = (productId) => {
 
 // Exercise 2
 const cleanCart = () => {
+  const countButtonCart = document.getElementById("count_product");
+  const tbodyTable = document.getElementById("cart_list");
+  const totalPriceTable = document.getElementById("total_price");
+
   cart.length = 0;
-  console.log("Cart is empty.");
+  countButtonCart.textContent = 0;
+  tbodyTable.innerHTML = "";
+  totalPriceTable.textContent = "0.00";
 };
 
 // Exercise 3
@@ -122,8 +124,6 @@ const calculateTotal = () => {
 
     total += totalProductPrice;
   }
-
-  console.log("Total Price: " + total);
   return total;
 };
 
@@ -184,11 +184,38 @@ const printCart = (totalPrice) => {
 // ** Nivell II **
 
 // Exercise 7
-function removeFromCart(id) {}
+const removeFromCart = (productId) => {
+  console.log(cart);
+
+  const productIndex = cart.findIndex((product) => product.id === productId);
+  const countButtonCart = document.getElementById("count_product");
+
+  if (productIndex !== -1) {
+    const product = cart[productIndex];
+    if (product.quantity > 1) {
+      product.quantity--;
+    } else {
+      cart.splice(productIndex, 1);
+    }
+
+    applyPromotionsCart();
+    const priceTotalProducts = calculateTotal();
+    printCart(priceTotalProducts);
+    let totalCount = 0;
+
+    cart.forEach((product) => {
+      totalCount += product.quantity;
+    });
+    countButtonCart.textContent = totalCount;
+  } else {
+    alert("Product not found in the cart");
+  }
+
+  console.log(cart);
+};
 
 const open_modal = () => {
   applyPromotionsCart();
   const priceTotalProducts = calculateTotal();
   printCart(priceTotalProducts);
-  console.log(cart);
 };
