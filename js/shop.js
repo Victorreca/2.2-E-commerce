@@ -136,6 +136,8 @@ const applyPromotionsCart = () => {
       const promotionPrice = 1 - product.offer.percent / 100;
       product.subtotalWithDiscount =
         product.price * product.quantity * promotionPrice;
+    } else {
+      delete product.subtotalWithDiscount;
     }
   }
 };
