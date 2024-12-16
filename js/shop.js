@@ -151,6 +151,7 @@ const printCart = (totalPrice) => {
 
   tbodyTable.innerHTML = "";
   let tableHTML = "";
+  let iconTrash = "images/remove.png";
 
   for (let i = 0; i < cart.length; i++) {
     const product = cart[i];
@@ -160,16 +161,22 @@ const printCart = (totalPrice) => {
     const firstCapitalLetter = titleProductCart.charAt(0).toUpperCase();
     const titleProductWithCapitalLetter =
       firstCapitalLetter + titleProductCart.slice(1).toLowerCase();
+    const productId = product.id;
     const totalProduct = product.subtotalWithDiscount
       ? product.subtotalWithDiscount.toFixed(2)
       : (product.price * product.quantity).toFixed(2);
 
     tableHTML += `
-      <tr>
+      <tr class="tr-table">
         <th scope="row">${titleProductWithCapitalLetter}</th>
         <td>$${priceProductCart}</td>
         <td>${qtyProductCart}</td>
         <td>$${totalProduct}</td>
+        <td>
+          <button class="border-0 bg-transparent" onclick="removeFromCart(${productId})">
+            <img src="${iconTrash}" width="30px">
+          </button>
+        </td>
       </tr>
     `;
   }
@@ -181,8 +188,6 @@ const printCart = (totalPrice) => {
 
 // Exercise 7
 const removeFromCart = (productId) => {
-  console.log(cart);
-
   const productIndex = cart.findIndex((product) => product.id === productId);
   const countButtonCart = document.getElementById("count_product");
 
