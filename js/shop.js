@@ -148,36 +148,30 @@ const printCart = (totalPrice) => {
   const totalPriceTable = document.getElementById("total_price");
 
   tbodyTable.innerHTML = "";
+  let tableHTML = "";
 
   for (let i = 0; i < cart.length; i++) {
     const product = cart[i];
-    const trTable = document.createElement("tr");
-    const thTable = document.createElement("th");
-    thTable.scope = "row";
-    const tdFirstTable = document.createElement("td");
-    const tdSecondTable = document.createElement("td");
-    const tdThirdTable = document.createElement("td");
-
     const titleProductCart = product.name;
-    const priceProductCart = product.price;
+    const priceProductCart = product.price.toFixed(2);
     const qtyProductCart = product.quantity;
     const firstCapitalLetter = titleProductCart.charAt(0).toUpperCase();
     const titleProductWithCapitalLetter =
       firstCapitalLetter + titleProductCart.slice(1).toLowerCase();
+    const totalProduct = product.subtotalWithDiscount
+      ? product.subtotalWithDiscount.toFixed(2)
+      : (product.price * product.quantity).toFixed(2);
 
-    thTable.textContent = titleProductWithCapitalLetter;
-    tdFirstTable.textContent = `$${priceProductCart.toFixed(2)}`;
-    tdSecondTable.textContent = qtyProductCart;
-    tdThirdTable.textContent = product.subtotalWithDiscount
-      ? `$${product.subtotalWithDiscount.toFixed(2)}`
-      : `$${(product.price * product.quantity).toFixed(2)}`;
-
-    trTable.appendChild(thTable);
-    trTable.appendChild(tdFirstTable);
-    trTable.appendChild(tdSecondTable);
-    trTable.appendChild(tdThirdTable);
-    tbodyTable.appendChild(trTable);
+    tableHTML += `
+      <tr>
+        <th scope="row">${titleProductWithCapitalLetter}</th>
+        <td>$${priceProductCart}</td>
+        <td>${qtyProductCart}</td>
+        <td>$${totalProduct}</td>
+      </tr>
+    `;
   }
+  tbodyTable.innerHTML = tableHTML;
   totalPriceTable.textContent = totalPrice.toFixed(2);
 };
 
